@@ -295,9 +295,11 @@ macro_rules | `($x - $y)   => `(binop% HSub.hSub $x $y)
 macro_rules | `($x * $y)   => `(binop% HMul.hMul $x $y)
 macro_rules | `($x / $y)   => `(binop% HDiv.hDiv $x $y)
 macro_rules | `($x % $y)   => `(binop% HMod.hMod $x $y)
-macro_rules | `($x ^ $y)   => `(binop% HPow.hPow $x $y)
 macro_rules | `($x ++ $y)  => `(binop% HAppend.hAppend $x $y)
 macro_rules | `(- $x)      => `(unop% Neg.neg $x)
+
+/-! The arguments of `x ^ y` should not be eagerly coerced to the same type, so we don't use `%binop`. -/
+macro_rules | `($x ^ $y)   => `(HPow.hPow $x $y)
 
 -- declare ASCII alternatives first so that the latter Unicode unexpander wins
 @[inherit_doc] infix:50 " <= " => LE.le
